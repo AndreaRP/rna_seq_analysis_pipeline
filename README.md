@@ -17,6 +17,8 @@ bash /data3/user/src/01.cluster_preprocessing.sh -c ~project_dir//DOC/parameters
 
 bash /data3/user/src/02.cluster_quantification.sh -c ~project_dir//DOC/parameters.config -q rsem -t se
 
+4. For PE, we can check the metrics by running
+bash 03.insert_size_array_job_submission.sh -c ~project_dir/doc/parameters.config
 
 The machine number can be found in in the fastq headers:
 

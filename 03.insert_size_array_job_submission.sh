@@ -24,6 +24,18 @@ done
 
 source $config_file
 
+if [ ! -d "${masterDir}sge_log" ]
+  then
+    mkdir -p "${masterDir}sge_log"
+fi
+
+if [ ! -d "${analysisDir}/05.insert_size" ]
+  then
+    mkdir -p "${analysisDir}/05.insert_size"
+fi
+
+
+
 # Use current working directory and current modules
 #$ -cwd -V
 

@@ -88,7 +88,7 @@ function rawQC () {
 	# RAW READS QUALITY CONTROL
 	> $log
 	echo -e "$(date): Execute fastqc on $sample_name" >> $log
-	echo -e " Command is: ### find $rawDir -name $sample_name.fastq* -exec fastqc {} --outdir $samplePreProQCDir \; ###" >> $log
+	echo -e " Command is: ### find $rawDir -name $sample_name_*.fastq.gz -exec fastqc {} --outdir $samplePreProQCDir \; ###" >> $log
 	find $rawDir -name $sample_name.fastq* -exec fastqc {} --outdir $samplePreProQCDir \; >> $log
 	echo -e "$(date): Finish fastqc" >> $log
 	echo -e "$(date): Finished raw reads quaility control" >> $log
@@ -98,9 +98,7 @@ function filterReads (){
 	#	VARIABLES
 	samplePostProDir="$analysisDir/02.trimmed_reads/$sample_name"
 	makedir $samplePostProDir	
-	log="$samplePostProDir/${sample_name}_trimming.log"
-
-	
+	log="$samplePostProDir/${sample_name}_trimming.log"	
 	> $log	
 	#-a: RNA-Seq TrueSeq y NEBNEXT adapter sequences
 	#-e 0.1 : allow a mismatch rate of 1 mismatch in ten bases between the read and the adapters
