@@ -31,13 +31,7 @@ done
 # Paths
 source $config_file
 
+IFS=$'\r\n' GLOBIGNORE='*' command eval  'samples_id=($(cat ${docDir}samples_id.txt))'
 
+qsub -P AG -A arubio -l h_vmem=5G -v config_file=$config_file,quant_sw=$quant_sw,technology=$technology -N "quantification" -t 1:${#samples_id[@]} -tc 10 -e ${analysisDir}/sge_log/\$TASK_ID.e.log -o ${analysisDir}/sge_log/\$TASK_ID.o.log ${srcDir}02.array_job_quantification.sh
 
-# array_length=($(wc -l ${docDir}samples_id.txt))
-
-# Run quantification
-cat ${docDir}samples_id.txt | while read in
-do 
-  #echo "qsub -P AG -A arubio -l h_vmem=6G -v config_file=$config_file,quant_sw=$quant_sw,sample_name=$in, technology=$technology -N '${in}_${quant_sw}_quantification' ${srcDir}02.quantification_united.sh"
-  qsub -P AG -A arubio -l h_vmem=6G -v config_file=$config_file,quant_sw=$quant_sw,sample_name=$in,technology=$technology -N "${in}_${quant_sw}_quantification" ${srcDir}02.quantification_united.sh 
-done
