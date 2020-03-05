@@ -10,8 +10,8 @@ while getopts "c:q:t:h" opt; do
   OPTIONS:
 	-c: path to config file.
 	-q: either 'rsem' or 'kallisto'
-  -t: either single end (se) or paired end (pe)
-	Usage: bash ~/cluster_quantification.sh -c /path/to/config/file/file.config -q rsem|kallisto -t se|pe" 
+  	-t: either single end (se) or paired end (pe)
+	Usage: bash ~/array_job_quantification_submission.sh -c /path/to/config/file/file.config -q rsem|kallisto -t se|pe" 
       ;;
     c)
 	  config_file=$OPTARG
