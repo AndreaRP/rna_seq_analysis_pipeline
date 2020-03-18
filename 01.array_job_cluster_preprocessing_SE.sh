@@ -39,7 +39,7 @@ function filterReads (){
 	#-o sample_name_trimmed.fastq : put the trimmer data in this file
 	echo -e "$(date) - Trimming sample ${sample_name}" >> $log
 	echo -e "cutadapt -a AR00#=AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -a AR00#b=GATCGGAAGAGCACACGTCTGAACTCCAGTCAC -a AR000=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -a AR000b=GATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -e 0.1 -O 5 -m 30 -o ${sample_name}_trimmed.fastq $rawDir/${sample_name}.fastq.gz" >> $log
-	cutadapt -a AR00#=AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -a AR00#b=GATCGGAAGAGCACACGTCTGAACTCCAGTCAC -a AR000=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -a AR000b=GATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -e 0.1 -O 5 -m 30 -o $samplePostProDir/${sample_name}_trimmed.fastq $rawDir/${sample_name}.fastq 2>&1 | tee -a $log
+	cutadapt -a AR00#=AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -a AR00#b=GATCGGAAGAGCACACGTCTGAACTCCAGTCAC -a AR000=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -a AR000b=GATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -e 0.1 -O 5 -m 30 -o $samplePostProDir/${sample_name}_trimmed.fastq $rawDir/${sample_name}.fastq.gz 2>&1 | tee -a $log
 	echo -e "$(date) - Finished trimming sample ${sample_name}" >> $log
 }
 
@@ -63,4 +63,4 @@ cmd2="filteredQC"
 
 #eval "$sample_name"
 eval $cmd1
-eval $cmd2
+# eval $cmd2
