@@ -27,7 +27,7 @@ function makedir () {
 	fi
 }
 function filterReads (){
-	# VARIABLES
+	#	VARIABLES
 	samplePostProDir="$analysisDir/02.trimmed_reads/$sample_name"
 	makedir $samplePostProDir	
 	log="$samplePostProDir/${sample_name}_trimming.log"	
@@ -38,21 +38,22 @@ function filterReads (){
 	#-m 30 : after trimming, reads less than 15bp are thrown out
 	#-o sample_name_trimmed.fastq : put the trimmer data in this file
 	echo -e "$(date) - Trimming sample ${sample_name}" >> $log
-	echo -e "cutadapt -a AR00#=AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -a AR00#b=GATCGGAAGAGCACACGTCTGAACTCCAGTCAC -a AR000=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -a AR000b=GATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -e 0.1 -O 5 -m 30 -o ${sample_name}_trimmed.fastq $rawDir/${sample_name}.fastq.gz" >> $log
-	cutadapt -a AR00#=AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -a AR00#b=GATCGGAAGAGCACACGTCTGAACTCCAGTCAC -a AR000=AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -a AR000b=GATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTA -e 0.1 -O 5 -m 30 -o $samplePostProDir/${sample_name}_trimmed.fastq $rawDir/${sample_name}.fastq 2>&1 | tee -a $log
+	echo -e "cutadapt -a AGATCGGAAGAGC -A AGATCGGAAGAGC -o $samplePostProDir/${sample_name}_R1_trimmed.fastq -p $samplePostProDir/${sample_name}_R2_trimmed.fastq $rawDir/${sample_name}_R1.fastq.gz $rawDir/${sample_name}_R2.fastq.gz" >> $log
+	cutadapt -a AGATCGGAAGAGC -g AGATCGGAAGAGC -o $samplePostProDir/${sample_name}_R1_trimmed.fastq -p $samplePostProDir/${sample_name}_R2_trimmed.fastq $rawDir/${sample_name}_R1.fastq.gz $rawDir/${sample_name}_R2.fastq.gz 2>&1 | tee -a $log 
 	echo -e "$(date) - Finished trimming sample ${sample_name}" >> $log
 }
 
 function filteredQC (){
 	sample_name=$1
-	# VARIABLES
+	#	VARIABLES
 	samplePostProQCDir="$analysisDir/03.trimmed_reads_QC/$sample_name"
 	samplePostProDir="$analysisDir/02.trimmed_reads/$sample_name"
 	makedir $samplePostProQCDir
 	log="$samplePostProQCDir/${sample_name}_postQC.log"
 	# TRIMMED READS QUALITY CONTROL
 	echo -e "$(date): Execute fastqc.sh" >> "$log"
-	find $samplePostProDir -name "*_trimmed.fastq" -exec fastqc {} --outdir $samplePostProQCDir \; >> "$log"
+	find $samplePostProDir -name "*R1_trimmed.fastq" -exec fastqc {} --outdir $samplePostProQCDir \; >> "$log"
+	find $samplePostProDir -name "*R2_trimmed.fastq" -exec fastqc {} --outdir $samplePostProQCDir \; >> "$log"
 	echo -e "$(date): Finish fastqc.sh" >> "$log"
 	echo -e "$(date): ********* Finished quaility control **********" >> "$log"
 }
