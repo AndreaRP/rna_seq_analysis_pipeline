@@ -10,6 +10,7 @@ set -e
 
 # Config (paths)
 source $config_file
+rawDir="$analysisDir/00.reads/"
 # Read file
 IFS=$'\r\n' GLOBIGNORE='*' command eval  'samples_id=($(cat ${docDir}samples_id.txt))'
 

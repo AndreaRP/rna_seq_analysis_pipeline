@@ -42,10 +42,12 @@ function makedir () {
 
 case $quant_sw in
   rsem)
-    index_file="Mus_musculus.GRCm38.ercc96.84.chr.NoPseudoNomiRNA.rsem"
+    # index_file="Mus_musculus.GRCm38.ercc96.84.chr.NoPseudoNomiRNA.rsem" # Normal option
+    index_file="Mus_musculus.GCF_000001635.26_GRCm38.p6_genomic.rsem" # Just for liver bmal
     #index_file="Homo_sapiens.GRCh38.82.primary_assembly.NomiRNAPseudo.sorted.rsem"
     quantDir="${analysisDir}/04.quantification/RSEM/"
-    rsem_index="${refDir}/rsem/${index_file}"
+    # rsem_index="${refDir}/rsem/${index_file}" # Normal option
+    rsem_index="/data3/genomes/mus_musculus/rsem/${index_file}" # Just for liver bmal
     ;;
   kallisto)
     # index_file="Mus_musculus.GRCm38.ercc96.84.chr.NoPseudoNomiRNA.kallisto.idx"
@@ -110,8 +112,8 @@ case $quant_sw in
         se)
             fastq_file="${rawDir}/${sample_name}/${sample_name}_trimmed.fastq"
             echo -e "$(date) - $sample_name" > $log
-            echo -e "rsem-calculate-expression -p 8 --estimate-rspd --output-genome-bam $fastq_file $rsem_index ${quantDir}/${sample_name}/${sample_name}" >> $log
-            rsem-calculate-expression -p 8 --estimate-rspd --output-genome-bam $fastq_file $rsem_index ${quantDir}/${sample_name}/${sample_name} 2>&1 | tee -a $log 
+            echo -e "rsem-calculate-expression -p 8 --estimate-rspd --sort-bam-by-coordinate --output-genome-bam $fastq_file $rsem_index ${quantDir}/${sample_name}/${sample_name}" >> $log
+            rsem-calculate-expression -p 8 --estimate-rspd --sort-bam-by-coordinate --output-genome-bam $fastq_file $rsem_index ${quantDir}/${sample_name}/${sample_name} 2>&1 | tee -a $log 
             echo -e "DONE" >> $log
         ;;
         pe)

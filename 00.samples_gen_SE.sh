@@ -69,8 +69,9 @@ do
   # Generate samples_id.txt
   sampleName=$(echo -e $file | rev | awk -F '/' -v OFS='_' '{print $2}' | rev)
   #echo $sampleName
-  sampleName=$(echo -e $sampleName | awk -F '_' -v OFS='_' '{print $2, $3}')
-  #echo $sampleName
+  #sampleName=$(echo -e $sampleName | awk -F '_' -v OFS='_' '{print $2, $3}')
+  sampleName=$(echo -e $sampleName | awk -F '_' -v OFS='_' '{print $2}')
+  echo $sampleName
   echo $sampleName >> "${docDir}/samples_id.txt"
   # Generate symbolic link
   ln -s $file ${readFolder}/${sampleName}.fastq.gz

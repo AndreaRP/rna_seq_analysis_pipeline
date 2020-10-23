@@ -145,8 +145,8 @@ case $quant_sw in
         se)
             fastq_file="${rawDir}/${sample_name}/${sample_name}_trimmed.fastq"
             echo -e "$(date) - $sample_name" > $log
-            echo -e "rsem-calculate-expression -p 8 --estimate-rspd --output-genome-bam $fastq_file $rsem_index ${quantDir}/${sample_name}/${sample_name}" >> $log
-            rsem-calculate-expression -p 8 --estimate-rspd --output-genome-bam $fastq_file $rsem_index ${quantDir}/${sample_name}/${sample_name} 2>&1 | tee -a $log 
+            echo -e "rsem-calculate-expression -p 8 --estimate-rspd --sort-bam-by-coordinate --output-genome-bam $fastq_file $rsem_index ${quantDir}/${sample_name}/${sample_name}" >> $log
+            rsem-calculate-expression -p 8 --estimate-rspd --sort-bam-by-coordinate --output-genome-bam $fastq_file $rsem_index ${quantDir}/${sample_name}/${sample_name} 2>&1 | tee -a $log 
             echo -e "DONE" >> $log
         ;;
         pe)
