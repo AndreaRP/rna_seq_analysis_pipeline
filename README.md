@@ -4,7 +4,7 @@ Sequence of scripts to run necessary steps to obtain the counts in a bulk sequen
  - QC
  - Preprocesing
  - QC
- - Alinment
+ - Alignment
  - Quantification
 
 The scripts run each step either in local machine, in an HPC as individual samples, or in an HPC as an arrayjob. 
